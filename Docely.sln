@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32421.90
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Docely", "Docely\Docely.csproj", "{D2C50CD6-70FF-479E-9D7B-AA57E5B9EFB0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D2C50CD6-70FF-479E-9D7B-AA57E5B9EFB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2C50CD6-70FF-479E-9D7B-AA57E5B9EFB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2C50CD6-70FF-479E-9D7B-AA57E5B9EFB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2C50CD6-70FF-479E-9D7B-AA57E5B9EFB0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {67054640-314D-4F54-8DC2-222A998154B4}
+	EndGlobalSection
+EndGlobal
