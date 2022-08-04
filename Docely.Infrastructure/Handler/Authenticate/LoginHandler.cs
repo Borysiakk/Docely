@@ -1,4 +1,5 @@
 ﻿using Docely.Domain.Contract.Result;
+using Docely.Domain.Query;
 using Docely.Infrastructure.Service;
 using MediatR;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Docely.Infrastructure.Handler.Authenticate
 {
-    public class LoginHandler :IRequest<AuthenticateResult>
+    public class LoginHandler :IRequestHandler<LoginCommand, AuthenticateResult>
     {
         private readonly IAuthenticateService _authenticateService;
 
@@ -18,9 +19,9 @@ namespace Docely.Infrastructure.Handler.Authenticate
             _authenticateService = authenticateService;
         }
 
-        public async Task<AuthenticateResult> Handle(AuthenticateResult result)
+        public async Task<AuthenticateResult> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
-
+            return await _authenticateService.LoginAsync(request);
         }
     }
 }
