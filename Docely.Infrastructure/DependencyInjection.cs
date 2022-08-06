@@ -3,7 +3,9 @@ using Docely.Infrastructure.Queries;
 using Docely.Infrastructure.Repository;
 using Docely.Infrastructure.Service;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using System.Reflection;
 
 namespace Docely.Infrastructure
@@ -16,6 +18,7 @@ namespace Docely.Infrastructure
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IAuthenticateService, AuthenticateService>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddTransient<IJwtTokenService, JwtTokenService>();
             return services;
         }
     }

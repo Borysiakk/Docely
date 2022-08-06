@@ -11,6 +11,7 @@ namespace Docely.Domain.Contract.Result
     {
         public UserDto User { get; set; }
         public string Token { get; set; }
+        public string RefreshToken { get; set; }
         public DateTime AuthDate { get; set; }
     }
 }

@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+Docely.Persistence/Migrations
+Docely/ClientApp/.angular/cache/babel-webpack
+Docely/ClientApp/.angular/cache/angular-webpack

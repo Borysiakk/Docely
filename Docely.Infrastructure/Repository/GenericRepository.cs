@@ -1,4 +1,5 @@
 ﻿using Docely.Domain.Entities;
+using Docely.Domain.Entity;
 using Docely.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -26,34 +27,23 @@ namespace Docely.Infrastructure.Repository
             await _entities.AddAsync(entity);
         }
 
-        public async Task AddRangeAsync(IEnumerable<T> entities)
-        {
-            await _entities.AddRangeAsync(entities);
-        }
-
-        public async Task<IEnumerable<T>> Find(Expression<Func<T, bool>> expression)
-        {
-            return await _context.Set<T>().Where(expression).ToListAsync();
-        }
-
-        public async Task<IEnumerable<T>> GetAll()
-        {
-            return await _entities.ToListAsync();
-        }
-
         public async Task<T?> GetById(long id)
         {
             return await _entities.FindAsync(id);
         }
 
-        public void Remove(T entity)
+        public async Task SaveAsync()
         {
-            _entities.Remove(entity);
+            await _context.SaveChangesAsync();
         }
 
-        public void RemoveRange(IEnumerable<T> entities)
+        public void Update(T entity)
         {
-            _entities.RemoveRange(entities);
+            if (entity == null)
+                throw new ArgumentNullException("entity");
+
+            _entities.Update(entity);
+            
         }
 
     }
