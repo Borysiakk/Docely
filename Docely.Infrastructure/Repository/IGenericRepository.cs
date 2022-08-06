@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Docely.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Docely.Infrastructure.Repository
 {
-    public interface IGenericRepository<T> where T : class
+    public interface IGenericRepository<T> where T : BaseEntity
     {
         Task AddAsync(T entities);
         Task AddRangeAsync(IEnumerable<T> entities);

@@ -18,9 +18,9 @@ namespace Docely.Persistence
             .AddJsonFile("appsettings.json", false)
             .Build();
 
-            string ConnectionStrings = configuration.GetConnectionString("ConnectionStrings");
+            string ConnectionStrings = configuration.GetConnectionString("DefaultConnection");
 
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer());
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(ConnectionStrings));
             return services;
         }
     }

@@ -1,17 +1,18 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Docely.Domain.Entities;
+using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
+
 
 namespace Docely.Domain.Entity
 {
-    public class User
+    public class User : BaseEntity
     {
-        public long Id { get; set; }
+
         public string Name { get; set; }
         public string SurName { get; set; }
+        [Required]
+        public string Login { get; set; }
+        [Required]
         public string Email { get; set; }
         [JsonIgnore]
         public string PasswordHash { get; set; }

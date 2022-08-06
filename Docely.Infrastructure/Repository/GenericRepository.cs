@@ -1,4 +1,5 @@
-﻿using Docely.Persistence;
+﻿using Docely.Domain.Entities;
+using Docely.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,22 +10,25 @@ using System.Threading.Tasks;
 
 namespace Docely.Infrastructure.Repository
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : class
+    public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {
-        private readonly ApplicationDbContext _context;
+        protected readonly DbSet<T> _entities;
+        protected readonly ApplicationDbContext _context;
+
         public GenericRepository(ApplicationDbContext context)
         {
             _context = context;
+            _entities = context.Set<T>();
         }
 
         public async Task AddAsync(T entity)
         {
-            await _context.Set<T>().AddAsync(entity);
+            await _entities.AddAsync(entity);
         }
 
         public async Task AddRangeAsync(IEnumerable<T> entities)
         {
-            await _context.Set<T>().AddRangeAsync(entities);
+            await _entities.AddRangeAsync(entities);
         }
 
         public async Task<IEnumerable<T>> Find(Expression<Func<T, bool>> expression)
@@ -34,22 +38,22 @@ namespace Docely.Infrastructure.Repository
 
         public async Task<IEnumerable<T>> GetAll()
         {
-            return await _context.Set<T>().ToListAsync();
+            return await _entities.ToListAsync();
         }
 
         public async Task<T?> GetById(long id)
         {
-            return await _context.Set<T>().FindAsync(id);
+            return await _entities.FindAsync(id);
         }
 
         public void Remove(T entity)
         {
-            _context.Set<T>().Remove(entity);
+            _entities.Remove(entity);
         }
 
         public void RemoveRange(IEnumerable<T> entities)
         {
-            _context.Set<T>().RemoveRange(entities);
+            _entities.RemoveRange(entities);
         }
 
     }

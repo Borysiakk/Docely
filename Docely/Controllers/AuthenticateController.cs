@@ -1,6 +1,6 @@
 ﻿using Docely.Domain.Contract;
 using Docely.Domain.Contract.Result;
-using Docely.Domain.Query;
+using Docely.Infrastructure.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,12 +8,10 @@ namespace Docely.Controllers
 {
     public class AuthenticateController : BaseController
     {
-        public AuthenticateController(ISender madiator) : base(madiator)
-        {
+        public AuthenticateController(ISender madiator) : base(madiator){}
 
-        }
-
-        public async Task<IActionResult> Login(LoginCommand login)
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(LoginQuery login)
         {
             try
             {

@@ -1,5 +1,7 @@
-﻿using Docely.Domain.Contract.Result;
-using Docely.Domain.Query;
+﻿
+using Docely.Domain.Contract.Result;
+using Docely.Infrastructure.Converters;
+using Docely.Infrastructure.Queries;
 using Docely.Infrastructure.Repository;
 using System;
 using System.Collections.Generic;
@@ -21,8 +23,8 @@ namespace Docely.Infrastructure.Service
 
         public async Task<AuthenticateResult> LoginAsync(LoginQuery loginQuery)
         {
-            var resultFindLogin = await _userRepository.GetUserByLoginAsync(loginQuery.Login);
-            if (resultFindLogin == null)
+            var user = await _userRepository.GetUserByLoginAsync(loginQuery.Login);
+            if (user == null)
             {
                 return new AuthenticateResult()
                 {
@@ -32,7 +34,7 @@ namespace Docely.Infrastructure.Service
                 };
             }
 
-            var resultCheckPassword = BC.Verify(loginQuery.Password, resultFindLogin.PasswordHash);
+            var resultCheckPassword = BC.Verify(loginQuery.Password, user.PasswordHash);
             if(!resultCheckPassword)
             {
                 return new AuthenticateResult()
@@ -47,6 +49,7 @@ namespace Docely.Infrastructure.Service
             {
                 Succeeded = true,
                 AuthDate = DateTime.Now,
+                User = user.ToUserDto(),
                 StatusCode = System.Net.HttpStatusCode.OK,
             };
         }

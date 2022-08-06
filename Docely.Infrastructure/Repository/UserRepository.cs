@@ -1,5 +1,6 @@
 ﻿using Docely.Domain.Entity;
 using Docely.Persistence;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,14 +16,14 @@ namespace Docely.Infrastructure.Repository
 
         }
 
-        public Task<User> GetUserByEmailAsync(string email)
+        public async Task<User> GetUserByEmailAsync(string email)
         {
-            throw new NotImplementedException();
+            return await _entities.FirstOrDefaultAsync(a => a.Email == email);
         }
 
-        public Task<User> GetUserByLoginAsync(string login)
+        public async Task<User> GetUserByLoginAsync(string login)
         {
-            throw new NotImplementedException();
+            return await _entities.FirstOrDefaultAsync(a => a.Login == login);
         }
     }
 }
