@@ -10,7 +10,7 @@ namespace Docely.Controllers
     {
         public AuthenticateController(ISender madiator) : base(madiator){}
 
-        [HttpPost("login")]
+        [HttpPost]
         public async Task<IActionResult> Login(LoginQuery login)
         {
             try
