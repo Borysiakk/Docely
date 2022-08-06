@@ -10,12 +10,10 @@ namespace Docely.Infrastructure.Repository
 {
     public interface IGenericRepository<T> where T : BaseEntity
     {
-        Task AddAsync(T entities);
-        Task AddRangeAsync(IEnumerable<T> entities);
-        Task<IEnumerable<T>> Find(Expression<Func<T, bool>> expression);
         Task<T?> GetById(long id);
-        Task<IEnumerable<T>> GetAll();
-        void Remove(T entity);
-        void RemoveRange(IEnumerable<T> entities);
+        Task AddAsync(T entities);
+        void Update(T entities);
+        Task SaveAsync();
+
     }
 }

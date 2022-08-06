@@ -6,6 +6,7 @@ using Docely.Infrastructure.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using BC = BCrypt.Net.BCrypt;
@@ -14,10 +15,12 @@ namespace Docely.Infrastructure.Service
 {
     public class AuthenticateService : IAuthenticateService
     {
+        private readonly IJwtTokenService _tokenService;
         private readonly IUserRepository _userRepository;
 
-        public AuthenticateService(IUserRepository userRepository)
+        public AuthenticateService(IUserRepository userRepository, IJwtTokenService tokenService)
         {
+            _tokenService = tokenService;
             _userRepository = userRepository;
         }
 
@@ -44,6 +47,21 @@ namespace Docely.Infrastructure.Service
                     StatusCode = System.Net.HttpStatusCode.Unauthorized,
                 };
             }
+
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.Role, "Manager")
+            };
+
+            var accessToken = _tokenService.GenerateAccessToken(claims);
+            var refreshToken = _tokenService.GenerateRefreshToken();
+
+            user.RefreshToken = refreshToken;
+            user.RefreshTokenExpiryTime = DateTime.Now.AddDays(7);
+
+            _userRepository.Update(user);
+            await _userRepository.SaveAsync();
 
             return new AuthenticateResult()
             {

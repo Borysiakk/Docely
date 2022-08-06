@@ -18,6 +18,8 @@ namespace Docely.Domain.Entity
         public string PasswordHash { get; set; }
         [JsonIgnore]
         public string PasswordSalt { get; set; }
+        public string? RefreshToken { get; set; }
+        public DateTime RefreshTokenExpiryTime { get; set; }
 
     }
 }

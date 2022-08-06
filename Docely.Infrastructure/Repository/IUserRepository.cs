@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace Docely.Infrastructure.Repository
 {
-    public interface IUserRepository
+    public interface IUserRepository :IGenericRepository<User>
     {
-        Task AddAsync(User user);
         Task<User> GetUserByEmailAsync(string email);
         Task<User> GetUserByLoginAsync(string login);
     }
