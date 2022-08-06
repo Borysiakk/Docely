@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Docely.Domain.Entity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 
@@ -6,6 +7,7 @@ namespace Docely.Persistence
 {
     public class ApplicationDbContext : DbContext
     {
+        public DbSet<User> Users { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
 
@@ -25,10 +27,10 @@ namespace Docely.Persistence
                 .AddJsonFile("appsettings.json", false)
                 .Build();
 
-                string ConnectionStrings = configuration.GetConnectionString("ConnectionStrings");
+                string ConnectionStrings = configuration.GetConnectionString("DefaultConnection");
 
 
-                var builder = new DbContextOptionsBuilder<ApplicationDbContext>().UseSqlServer();
+                var builder = new DbContextOptionsBuilder<ApplicationDbContext>().UseSqlServer(ConnectionStrings);
                 return new ApplicationDbContext(builder.Options);
             }
         }
