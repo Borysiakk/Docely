@@ -1,5 +1,6 @@
 ﻿using Docely.Domain.Contract;
 using Docely.Domain.Contract.Result;
+using Docely.Domain.Dto;
 using Docely.Infrastructure.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -27,6 +28,17 @@ namespace Docely.Controllers
                 Console.WriteLine(ex);
                 throw;
             }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Refresh(TokenQuery token)
+        {
+            var result = await _madiator.Send(token) as TokenDto;
+
+            if(result == null)
+                return Unauthorized();
+
+            return new OkObjectResult(result);
         }
     }
 }

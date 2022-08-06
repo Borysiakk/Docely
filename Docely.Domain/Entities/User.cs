@@ -23,3 +23,4 @@ namespace Docely.Domain.Entity
 
     }
 }
+

@@ -50,7 +50,7 @@ namespace Docely.Infrastructure.Service
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.Name, user.Login),
                 new Claim(ClaimTypes.Role, "Manager")
             };
 
@@ -68,6 +68,8 @@ namespace Docely.Infrastructure.Service
                 Succeeded = true,
                 AuthDate = DateTime.Now,
                 User = user.ToUserDto(),
+                Token = accessToken,
+                RefreshToken = refreshToken,
                 StatusCode = System.Net.HttpStatusCode.OK,
             };
         }

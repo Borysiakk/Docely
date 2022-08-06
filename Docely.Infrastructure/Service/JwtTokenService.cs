@@ -32,7 +32,7 @@ namespace Docely.Infrastructure.Service
                 var tokeOptions = new JwtSecurityToken
                 (
                     issuer: _configuration["JWT:ValidIssuer"],
-                    audience: _configuration["JWT:ValidIssuer"],
+                    audience: _configuration["JWT:ValidAudience"],
                     claims: claims,
                     expires: DateTime.Now.AddMinutes(tokenValidityInMinutes),
                     signingCredentials: signinCredentials
@@ -59,12 +59,13 @@ namespace Docely.Infrastructure.Service
 
         public ClaimsPrincipal GetPrincipalFromExpiredToken(string token)
         {
+            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"])); 
             var tokenValidationParameters = new TokenValidationParameters
             {
                 ValidateAudience = false, //you might want to validate the audience and issuer depending on your use case
                 ValidateIssuer = false,
                 ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345")),
+                IssuerSigningKey = secretKey,
                 ValidateLifetime = false //here we are saying that we don't care about the token's expiration date
             };
             var tokenHandler = new JwtSecurityTokenHandler();
