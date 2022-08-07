@@ -364,3 +364,6 @@ FodyWeavers.xsd
 Docely.Persistence/Migrations
 Docely/ClientApp/.angular/cache/babel-webpack
 Docely/ClientApp/.angular/cache/angular-webpack
+
+.vscode/
+Docely/ClientApp/package-lock.json
