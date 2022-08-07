@@ -35,7 +35,15 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddControllersWithViews().AddNewtonsoftJson();
 builder.Services.AddPersistence();
 builder.Services.AddInfrastructure();
-
+builder.Services.AddCors(options => {
+    options.AddDefaultPolicy(
+        builder => {
+            builder.WithOrigins("localhost:44487")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        }
+    );
+});
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
@@ -49,7 +57,12 @@ if (!app.Environment.IsDevelopment())
 
 app.UseSwagger();
 app.UseSwaggerUI();
-
+app.UseCors(builder => {
+    builder
+        .AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader();
+});
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
