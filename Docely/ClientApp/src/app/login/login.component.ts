@@ -27,6 +27,7 @@ interface LoginResult {
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  isError: boolean = false;
   public loginForm: FormGroup;
 
   constructor(
@@ -41,13 +42,15 @@ export class LoginComponent implements OnInit {
 
   login() {
     const postData = {
-      login: 'BORYSIAK',
-      password: 'string'
+      login: this.loginForm.controls.email.value,
+      password: this.loginForm.controls.password.value
     };
 
-    this.http.post<LoginResult>(environment.apiUrl + '/Authenticate/Login', postData).subscribe(
+    return this.http.post<LoginResult>(environment.apiUrl + '/Authenticate/Login', postData).subscribe(
       (data: LoginResult) => {
-        console.log(data);
+          alert("Login succeeded");
+      }, (error: any) => {
+          this.isError = true;
       }
     );
   }
