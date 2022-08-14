@@ -16,7 +16,6 @@ namespace Docely.Infrastructure
         {
             services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IAuthenticateService, AuthenticateService>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddTransient<IJwtTokenService, JwtTokenService>();
             return services;
