@@ -40,5 +40,16 @@ namespace Docely.Controllers
 
             return new OkObjectResult(result);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterQuery register)
+        {
+            var result = await _madiator.Send(register) as RegisterResult;
+
+            if (!result.Succeeded)
+                return new UnauthorizedObjectResult(result);
+            
+            return new OkObjectResult(result);
+        }
     }
 }
