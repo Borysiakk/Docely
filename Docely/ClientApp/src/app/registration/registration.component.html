@@ -3,8 +3,15 @@
     <div>
       <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">Docely</h2>
     </div>
-    <form class="mt-8 space-y-6" method="POST">
-      <input type="hidden" name="remember" value="true">
+    <form class="mt-8 space-y-6" method="POST" [formGroup]="registerForm" (ngSubmit)="register()">
+      <div role="alert" *ngIf="errors.length != 0">
+        <div class="bg-red-500 text-white font-bold rounded-t px-4 py-2">
+          Error
+        </div>
+        <div class="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700">
+          <p>{{ errors }}</p>
+        </div>
+      </div>
       <div class="rounded-md shadow-sm -space-y-px">
         <div>
           <label for="name" class="sr-only">Imie</label>
@@ -14,7 +21,7 @@
         </div>
         <div>
           <label for="surName" class="sr-only">Surname</label>
-          <input id="surName" name="text" type="email" autocomplete="email" required formControlName="text"
+          <input id="surName" name="text" type="email" required formControlName="surName"
                  class="appearance-none   block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                  placeholder="Surname">
         </div>
@@ -32,7 +39,7 @@
         </div>
         <div>
           <label for="passwordTwo" class="sr-only">Confirm Password</label>
-          <input id="passwordTwo" name="password" type="password" autocomplete="current-password" required formControlName="Confirm Password"
+          <input id="passwordTwo" name="password" type="password" autocomplete="current-password" required formControlName="passwordTwo"
                  class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                  placeholder="Confirm Password">
         </div>
